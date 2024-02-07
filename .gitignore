@@ -1,0 +1,5 @@
+# Ignore virtual environment
+myvenv/
+
+# Ignore node_modules directory for frontend
+node_modules/
