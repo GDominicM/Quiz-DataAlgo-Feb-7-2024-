@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Button, Card, ListGroupItem } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import axios from 'axios';
-// import products from '../products';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../actions/cartActions';
 
 
 function ProductScreen() {
   const { id } = useParams();
   const [product, setProduct] = useState([])
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const qty = 1
+
+const addToCartHandler = () => {
+    dispatch(addToCart(id, qty));
+    navigate('/cart')
+};
 
   useEffect(() => {
   const fetchProduct = async () => {
@@ -59,7 +69,7 @@ function ProductScreen() {
                     <ListGroup.Item>
                         <Row>
                             <Button 
-                                onClick={null} //addToCartHandler
+                                onClick={addToCartHandler}
                                 className="btn-block"
                                 type="button"
                                 disabled={product.countInStock === 0}
